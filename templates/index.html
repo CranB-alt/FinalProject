@@ -5,78 +5,86 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 40px;
+            margin: 40px;
+            background-color: #f5f5f5;
         }
         .container {
             background: white;
             padding: 25px;
-            max-width: 450px;
-            margin: auto;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        }
-        h2 {
-            text-align: center;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         label {
             font-weight: bold;
+            display: block;
+            margin-top: 15px;
         }
         input, select {
             width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            margin-bottom: 15px;
-            border-radius: 5px;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
             border: 1px solid #ccc;
         }
         button {
+            margin-top: 20px;
+            padding: 10px;
             width: 100%;
-            padding: 12px;
-            background: #007bff;
+            background-color: #0077cc;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
         }
         button:hover {
-            background: #0056b3;
+            background-color: #005fa3;
         }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            border-radius: 5px;
+        small {
+            color: #555;
         }
     </style>
 </head>
+
 <body>
+    <div class="container">
+        <h2>Penguin Species Predictor</h2>
+        <p style="color:#444; font-size:15px; line-height:1.4;">
+            This tool uses a machine learning model trained on the Palmer Penguins dataset 
+            to predict a penguin’s species based on bill depth and island location. 
+            Please enter values within the natural range of the dataset to get the most accurate prediction.
+        </p>
 
-<div class="container">
-    <h2>Penguin Species Predictor</h2>
+        <form action="/" method="post">
 
-    <form method="POST">
-        <label>Bill Depth (mm):</label>
-        <input type="number" step="0.01" name="bill_depth" required>
+            <label>Bill Depth (mm):</label>
+            <input 
+                type="number" 
+                name="bill_depth" 
+                step="0.1" 
+                min="13.0" 
+                max="22.0" 
+                required
+            >
+            <small>Typical dataset range: 13–22 mm</small>
 
-        <label>Island:</label>
-        <select name="island" required>
-            <option value="Biscoe">Biscoe</option>
-            <option value="Dream">Dream</option>
-            <option value="Torgersen">Torgersen</option>
-        </select>
+            <label>Island:</label>
+            <select name="island" required>
+                <option value="Biscoe">Biscoe</option>
+                <option value="Dream">Dream</option>
+                <option value="Torgersen">Torgersen</option>
+            </select>
 
-        <button type="submit">Predict Species</button>
-    </form>
+            <button type="submit">Predict Species</button>
+        </form>
 
-    {% if prediction %}
-    <div class="result">
-        <strong>Predicted Species:</strong> {{ prediction }}
+        {% if prediction %}
+            <h3 style="margin-top:25px;">Prediction: {{ prediction }}</h3>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
-
 </body>
 </html>
+
+
